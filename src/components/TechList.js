@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import TechItem from './TechItem';
+
 class TechList extends Component {
   
   // jeito convencional de se criar estados dentro de um class component
@@ -35,12 +37,18 @@ class TechList extends Component {
       newTech: ''
     });
   }
+
+  handleDelete = tech => {
+    this.setState({ 
+      techs: this.state.techs.filter(t => t !== tech)
+    });
+  }
   
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <ul>
-          {this.state.techs.map(tech => <li key={tech}>{tech}</li>)}
+          {this.state.techs.map(tech => <TechItem key={tech} tech={tech} onDelete={() => this.handleDelete(tech)}/>)}
         </ul>
         <input 
           type="text" 
